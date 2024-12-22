@@ -1,6 +1,10 @@
 ### FLUSHOT ANALYSIS
+
+![Flu shot dashboard](image.png)
+
 #### Project Summary
 The purpose of this project is to identify the key performance metrics involed in the Flu Shot Vaccination for the year 2022.Our goal is to find the total percentage of people who received their flushot which was stratified based on their gender, race and region(county). This is acheived using SQL (data extraction) and Tableau (for visualisation).
+
 ### Dataset
 This project uses synthetically generated data for the analysis from an open source called Synthea. Synthea is an open-source, synthetic patient generator that models the medical history of synthetic patients.Imported the csv files into PostgreSQL.And the size of the dataset was approximately 400000 records for each table.It consists of the patients,immunizations,condition and encounters details.
 ### Studying the Dataset
