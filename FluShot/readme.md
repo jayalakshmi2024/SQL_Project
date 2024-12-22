@@ -1,6 +1,6 @@
 ### FLUSHOT ANALYSIS
 
-![Flu shot dashboard](image.png)
+![FluShot Dashboard](image-1.png)
 
 #### Project Summary
 The purpose of this project is to identify the key performance metrics involed in the Flu Shot Vaccination for the year 2022.Our goal is to find the total percentage of people who received their flushot which was stratified based on their gender, race and region(county). This is acheived using SQL (data extraction) and Tableau (for visualisation).
