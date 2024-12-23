@@ -58,7 +58,6 @@ sleep_day
 
 #### Usind head(),we can view the first few rows of the data frame.And using str(), the structure of the data frame can be seen.
 
-![alt text](image-24.png)
 
 ![alt text](image-2.png)   
 
