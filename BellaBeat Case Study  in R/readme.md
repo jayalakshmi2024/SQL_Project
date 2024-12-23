@@ -22,14 +22,8 @@ The fitness dataset has 18 files in csv format. It consists of the daily metrics
 
 ##### Loading Packages
 
-library(tidyverse)
-library(readr)
-library(dplyr)
-library(tidyr)
-library(lubridate)
-library(janitor)
-library(skimr)
-library(ggplot2)
+![alt text](image.png)
+
 Attaching package: ‘janitor’
 
 
@@ -38,24 +32,7 @@ The following objects are masked from ‘package:stats’:
 
 ##### Importing the dataset
 
-daily_activity <- read.csv("/kaggle/input/fitbit/mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/dailyActivity_merged.csv")
-daily_calories <- read.csv("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/dailyCalories_merged.csv")
-daily_intensities <- read.csv("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/dailyIntensities_merged.csv")
-daily_steps <- read.csv("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/dailySteps_merged.csv")
-heartrate_seconds <- read.csv("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/heartrate_seconds_merged.csv")
-hourly_calories <- read.csv("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/hourlyCalories_merged.csv")
-hourly_intensities <- read.csv("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/hourlyIntensities_merged.csv")
-hourly_steps <- read.csv("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/hourlySteps_merged.csv")
-minute_calories_narrow <- read.csv("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/minuteCaloriesNarrow_merged.csv")
-minute_calories_wide <-  read.csv("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/minuteCaloriesWide_merged.csv")
-minute_intensities_narrow <-  read.csv("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/minuteIntensitiesNarrow_merged.csv")
-minute_intensities_wide <-  read.csv("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/minuteIntensitiesWide_merged.csv")
-minute_mets_narrow <- read.csv ("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/minuteMETsNarrow_merged.csv")
-minute_sleep <- read.csv ("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/minuteSleep_merged.csv")
-minute_steps_narrow <- read.csv ("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/minuteStepsNarrow_merged.csv")
-minute_steps_wide <- read.csv ("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/minuteStepsWide_merged.csv")
-sleep_day <- read.csv("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/sleepDay_merged.csv")
-weightlog_info <- read.csv ("/kaggle/input/fitbit/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/weightLogInfo_merged.csv")
+![alt text](image-1.png)
 
 All of the 18 files have been imported and studied before proceeding further analysis.
 
@@ -74,100 +51,22 @@ sleep_day for our analysis in this project.
 
 ##### Data considered for analysis in this project:
 
-daily_activity
-hourly_intensities
-hourly_steps
+daily_activity      
+hourly_intensities   
+hourly_steps   
 sleep_day
 
 #### Usind head(),we can view the first few rows of the data frame.And using str(), the structure of the data frame can be seen.
 
-head(daily_activity)
-str(daily_activity)
-head(hourly_intensities)
-str(hourly_intensities)
-head(hourly_steps)
-str(hourly_steps)
-head(sleep_day)
-str(sleep_day)
+![alt text](image-2.png)
 
+![alt text](image-3.png)
 
-##### A data.frame: 6 × 15
-Id	ActivityDate	TotalSteps	TotalDistance	TrackerDistance	LoggedActivitiesDistance	VeryActiveDistance	ModeratelyActiveDistance	LightActiveDistance	SedentaryActiveDistance	VeryActiveMinutes	FairlyActiveMinutes	LightlyActiveMinutes	SedentaryMinutes	Calories
-<dbl>	<chr>	<int>	<dbl>	<dbl>	<dbl>	<dbl>	<dbl>	<dbl>	<dbl>	<int>	<int>	<int>	<int>	<int>
-1	1503960366	3/25/2016	11004	7.11	7.11	0	2.57	0.46	4.07	0	33	12	205	804	1819
-2	1503960366	3/26/2016	17609	11.55	11.55	0	6.92	0.73	3.91	0	89	17	274	588	2154
-3	1503960366	3/27/2016	12736	8.53	8.53	0	4.66	0.16	3.71	0	56	5	268	605	1944
-4	1503960366	3/28/2016	13231	8.93	8.93	0	3.19	0.79	4.95	0	39	20	224	1080	1932
-5	1503960366	3/29/2016	12041	7.85	7.85	0	2.16	1.09	4.61	0	28	28	243	763	1886
-6	1503960366	3/30/2016	10970	7.16	7.16	0	2.36	0.51	4.29	0	30	13	223	1174	1820
+![alt text](image-4.png)
 
-##### 'data.frame':	457 obs. of  15 variables:
- $ Id                      : num  1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...
- $ ActivityDate            : chr  "3/25/2016" "3/26/2016" "3/27/2016" "3/28/2016" ...
- $ TotalSteps              : int  11004 17609 12736 13231 12041 10970 12256 12262 11248 10016 ...
- $ TotalDistance           : num  7.11 11.55 8.53 8.93 7.85 ...
- $ TrackerDistance         : num  7.11 11.55 8.53 8.93 7.85 ...
- $ LoggedActivitiesDistance: num  0 0 0 0 0 0 0 0 0 0 ...
- $ VeryActiveDistance      : num  2.57 6.92 4.66 3.19 2.16 ...
- $ ModeratelyActiveDistance: num  0.46 0.73 0.16 0.79 1.09 ...
- $ LightActiveDistance     : num  4.07 3.91 3.71 4.95 4.61 ...
- $ SedentaryActiveDistance : num  0 0 0 0 0 0 0 0 0 0 ...
- $ VeryActiveMinutes       : int  33 89 56 39 28 30 33 47 40 15 ...
- $ FairlyActiveMinutes     : int  12 17 5 20 28 13 12 21 11 30 ...
- $ LightlyActiveMinutes    : int  205 274 268 224 243 223 239 200 244 314 ...
- $ SedentaryMinutes        : int  804 588 605 1080 763 1174 820 866 636 655 ...
- $ Calories                : int  1819 2154 1944 1932 1886 1820 1889 1868 1843 1850 ...
+![alt text](image-5.png)
 
-
-##### A data.frame: 6 × 4
-Id	ActivityHour	TotalIntensity	AverageIntensity
-<dbl>	<chr>	<int>	<dbl>
-1	1503960366	4/12/2016 12:00:00 AM	20	0.333333
-2	1503960366	4/12/2016 1:00:00 AM	8	0.133333
-3	1503960366	4/12/2016 2:00:00 AM	7	0.116667
-4	1503960366	4/12/2016 3:00:00 AM	0	0.000000
-5	1503960366	4/12/2016 4:00:00 AM	0	0.000000
-6	1503960366	4/12/2016 5:00:00 AM	0	0.000000
-
-##### 'data.frame':	22099 obs. of  4 variables:
- $ Id              : num  1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...
- $ ActivityHour    : chr  "4/12/2016 12:00:00 AM" "4/12/2016 1:00:00 AM" "4/12/2016 2:00:00 AM" "4/12/2016 3:00:00 AM" ...
- $ TotalIntensity  : int  20 8 7 0 0 0 0 0 13 30 ...
- $ AverageIntensity: num  0.333 0.133 0.117 0 0 ...
-
-
-##### A data.frame: 6 × 3
-Id	ActivityHour	StepTotal
-<dbl>	<chr>	<int>
-1	1503960366	4/12/2016 12:00:00 AM	373
-2	1503960366	4/12/2016 1:00:00 AM	160
-3	1503960366	4/12/2016 2:00:00 AM	151
-4	1503960366	4/12/2016 3:00:00 AM	0
-5	1503960366	4/12/2016 4:00:00 AM	0
-6	1503960366	4/12/2016 5:00:00 AM	0
-
-##### 'data.frame':	22099 obs. of  3 variables:
- $ Id          : num  1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...
- $ ActivityHour: chr  "4/12/2016 12:00:00 AM" "4/12/2016 1:00:00 AM" "4/12/2016 2:00:00 AM" "4/12/2016 3:00:00 AM" ...
- $ StepTotal   : int  373 160 151 0 0 0 0 0 250 1864 ...
-
-
-##### A data.frame: 6 × 5
-Id	SleepDay	TotalSleepRecords	TotalMinutesAsleep	TotalTimeInBed
-<dbl>	<chr>	<int>	<int>	<int>
-1	1503960366	4/12/2016 12:00:00 AM	1	327	346
-2	1503960366	4/13/2016 12:00:00 AM	2	384	407
-3	1503960366	4/15/2016 12:00:00 AM	1	412	442
-4	1503960366	4/16/2016 12:00:00 AM	2	340	367
-5	1503960366	4/17/2016 12:00:00 AM	1	700	712
-6	1503960366	4/19/2016 12:00:00 AM	1	304	320
-
-##### 'data.frame':	413 obs. of  5 variables:
- $ Id                : num  1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...
- $ SleepDay          : chr  "4/12/2016 12:00:00 AM" "4/13/2016 12:00:00 AM" "4/15/2016 12:00:00 AM" "4/16/2016 12:00:00 AM" ...
- $ TotalSleepRecords : int  1 2 1 2 1 1 1 1 1 1 ...
- $ TotalMinutesAsleep: int  327 384 412 340 700 304 360 325 361 430 ...
- $ TotalTimeInBed    : int  346 407 442 367 712 320 377 364 384 449 ...
+![alt text](image-6.png)
 
 ##### Limitations:
 
@@ -186,47 +85,36 @@ Now Let's do some cleaning work with our data. Checking the distinct,null and du
   
 ##### Checking for Distinct Values
 
-n_distinct(daily_activity$Id)
-n_distinct(daily_intensities$Id)
-n_distinct(daily_calories$Id)
-n_distinct(daily_steps$Id)
-n_distinct(hourly_intensities$Id)
-n_distinct(hourly_steps$Id)
-n_distinct(sleep_day$Id)
+n_distinct(daily_activity$Id)   
+n_distinct(daily_intensities$Id)   
+n_distinct(daily_calories$Id)   
+n_distinct(daily_steps$Id)   
+n_distinct(hourly_intensities$Id)   
+n_distinct(hourly_steps$Id)   
+n_distinct(sleep_day$Id)   
 
-35
-33
-33
-33
-33
-33
-24
+35   
+33   
+33   
+33   
+33   
+33   
+24   
 
 ##### Checking for Duplicate values
 
-sum(duplicated(daily_activity))
-sum(duplicated(hourly_intensities))
-sum(duplicated(hourly_steps))
-sum(duplicated(sleep_day))
-0
-0
-0
-3
+sum(duplicated(daily_activity))   
+sum(duplicated(hourly_intensities))   
+sum(duplicated(hourly_steps))   
+sum(duplicated(sleep_day))   
+0   
+0   
+0   
+3   
 
 ##### Removing Duplicate Values
 
-sleep_day <- sleep_day %>%
-  distinct() %>%
-  drop_na()%>%glimpse
-
-
-Rows: 410
-Columns: 5
-$ Id                 <dbl> 1503960366, 1503960366, 1503960366, 1503960366, 150…
-$ SleepDay           <chr> "4/12/2016 12:00:00 AM", "4/13/2016 12:00:00 AM", "…
-$ TotalSleepRecords  <int> 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-$ TotalMinutesAsleep <int> 327, 384, 412, 340, 700, 304, 360, 325, 361, 430, 2…
-$ TotalTimeInBed     <int> 346, 407, 442, 367, 712, 320, 377, 364, 384, 449, 3…
+![alt text](image-7.png)
 
 ##### Cleaning the column names
 
@@ -235,166 +123,73 @@ hourly_intensities <- clean_names(hourly_intensities) %>% glimpse
 hourly_steps <- clean_names(hourly_steps) %>% glimpse
 sleep_day <- clean_names(sleep_day) %>% glimpse
 
-Rows: 457
-Columns: 15
-$ id                         <dbl> 1503960366, 1503960366, 1503960366, 1503960…
-$ activity_date              <chr> "3/25/2016", "3/26/2016", "3/27/2016", "3/2…
-$ total_steps                <int> 11004, 17609, 12736, 13231, 12041, 10970, 1…
-$ total_distance             <dbl> 7.11, 11.55, 8.53, 8.93, 7.85, 7.16, 7.86, …
-$ tracker_distance           <dbl> 7.11, 11.55, 8.53, 8.93, 7.85, 7.16, 7.86, …
-$ logged_activities_distance <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-$ very_active_distance       <dbl> 2.57, 6.92, 4.66, 3.19, 2.16, 2.36, 2.29, 3…
-$ moderately_active_distance <dbl> 0.46, 0.73, 0.16, 0.79, 1.09, 0.51, 0.49, 0…
-$ light_active_distance      <dbl> 4.07, 3.91, 3.71, 4.95, 4.61, 4.29, 5.04, 3…
-$ sedentary_active_distance  <dbl> 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0…
-$ very_active_minutes        <int> 33, 89, 56, 39, 28, 30, 33, 47, 40, 15, 43,…
-$ fairly_active_minutes      <int> 12, 17, 5, 20, 28, 13, 12, 21, 11, 30, 18, …
-$ lightly_active_minutes     <int> 205, 274, 268, 224, 243, 223, 239, 200, 244…
-$ sedentary_minutes          <int> 804, 588, 605, 1080, 763, 1174, 820, 866, 6…
-$ calories                   <int> 1819, 2154, 1944, 1932, 1886, 1820, 1889, 1…
+![alt text](image-8.png)
 
-Rows: 22,099
-Columns: 4
-$ id                <dbl> 1503960366, 1503960366, 1503960366, 1503960366, 1503…
-$ activity_hour     <chr> "4/12/2016 12:00:00 AM", "4/12/2016 1:00:00 AM", "4/…
-$ total_intensity   <int> 20, 8, 7, 0, 0, 0, 0, 0, 13, 30, 29, 12, 11, 6, 36, …
-$ average_intensity <dbl> 0.333333, 0.133333, 0.116667, 0.000000, 0.000000, 0.…
-
-Rows: 22,099
-Columns: 3
-$ id            <dbl> 1503960366, 1503960366, 1503960366, 1503960366, 15039603…
-$ activity_hour <chr> "4/12/2016 12:00:00 AM", "4/12/2016 1:00:00 AM", "4/12/2…
-$ step_total    <int> 373, 160, 151, 0, 0, 0, 0, 0, 250, 1864, 676, 360, 253, …
-
-Rows: 410
-Columns: 5
-$ id                   <dbl> 1503960366, 1503960366, 1503960366, 1503960366, 1…
-$ sleep_day            <chr> "4/12/2016 12:00:00 AM", "4/13/2016 12:00:00 AM",…
-$ total_sleep_records  <int> 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-$ total_minutes_asleep <int> 327, 384, 412, 340, 700, 304, 360, 325, 361, 430,…
-$ total_time_in_bed    <int> 346, 407, 442, 367, 712, 320, 377, 364, 384, 449,…
 
 ##### Changing the column names for easier analysis
 
-colnames(hourly_steps)[2] = "activity_date"
-colnames(hourly_intensities)[2] = "activity_date"
-colnames(sleep_day)[2] = "activity_date"
+colnames(hourly_steps)[2] = "activity_date"   
+colnames(hourly_intensities)[2] = "activity_date"   
+colnames(sleep_day)[2] = "activity_date"   
 
 ##### Checking for correct datatype
 
 It was found that the date and time column in the dataframe is in charater format.So converting it to the correct format.
 
 ##### converting activity_date to date format
-daily_activity$activity_date <- as.POSIXct(daily_activity$activity_date, format = "%m/%d/%Y")
-daily_activity <- daily_activity %>% 
-  mutate(activity_date = as.Date(activity_date))
+daily_activity$activity_date <- as.POSIXct(daily_activity$activity_date, format = "%m/%d/%Y")   
+daily_activity <- daily_activity %>%    
+  mutate(activity_date = as.Date(activity_date))   
 str(daily_activity)
 
+![alt text](image-9.png)
 
-##### 'data.frame':	457 obs. of  15 variables:
- $ id                        : num  1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...
- $ activity_date             : Date, format: "2016-03-25" "2016-03-26" ...
- $ total_steps               : int  11004 17609 12736 13231 12041 10970 12256 12262 11248 10016 ...
- $ total_distance            : num  7.11 11.55 8.53 8.93 7.85 ...
- $ tracker_distance          : num  7.11 11.55 8.53 8.93 7.85 ...
- $ logged_activities_distance: num  0 0 0 0 0 0 0 0 0 0 ...
- $ very_active_distance      : num  2.57 6.92 4.66 3.19 2.16 ...
- $ moderately_active_distance: num  0.46 0.73 0.16 0.79 1.09 ...
- $ light_active_distance     : num  4.07 3.91 3.71 4.95 4.61 ...
- $ sedentary_active_distance : num  0 0 0 0 0 0 0 0 0 0 ...
- $ very_active_minutes       : int  33 89 56 39 28 30 33 47 40 15 ...
- $ fairly_active_minutes     : int  12 17 5 20 28 13 12 21 11 30 ...
- $ lightly_active_minutes    : int  205 274 268 224 243 223 239 200 244 314 ...
- $ sedentary_minutes         : int  804 588 605 1080 763 1174 820 866 636 655 ...
- $ calories                  : int  1819 2154 1944 1932 1886 1820 1889 1868 1843 1850 ...
-
-hourly_steps$activity_date <- as.POSIXct(hourly_steps$activity_date, format = "%m/%d/%Y %I:%M:%S %p" , tz=Sys.timezone())
+hourly_steps$activity_date <- as.POSIXct(hourly_steps$activity_date, format = "%m/%d/%Y %I:%M:%S %p" , tz=Sys.timezone())   
 str(hourly_steps)
 
 ##### 'data.frame':	22099 obs. of  3 variables:
- $ id           : num  1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...
- $ activity_date: POSIXct, format: "2016-04-12 00:00:00" "2016-04-12 01:00:00" ...
- $ step_total   : int  373 160 151 0 0 0 0 0 250 1864 ...
+ $ id           : num  1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...   
+ $ activity_date: POSIXct, format: "2016-04-12 00:00:00" "2016-04-12 01:00:00" ...   
+ $ step_total   : int  373 160 151 0 0 0 0 0 250 1864 ...   
 
-hourly_intensities$activity_date <- as.POSIXct(hourly_intensities$activity_date, format = "%m/%d/%Y %I:%M:%S %p" , tz=Sys.timezone())
+hourly_intensities$activity_date <- as.POSIXct(hourly_intensities$activity_date, format = "%m/%d/%Y %I:%M:%S %p" , tz=Sys.timezone())      
 str(hourly_intensities)
 
 ##### 'data.frame':	22099 obs. of  4 variables:
- $ id               : num  1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...
- $ activity_date    : POSIXct, format: "2016-04-12 00:00:00" "2016-04-12 01:00:00" ...
- $ total_intensity  : int  20 8 7 0 0 0 0 0 13 30 ...
- $ average_intensity: num  0.333 0.133 0.117 0 0 ...
-sleep_day$activity_date <- as.POSIXct(sleep_day$activity_date, format = "%m/%d/%Y %I:%M:%S %p")
+ $ id               : num  1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...   
+ $ activity_date    : POSIXct, format: "2016-04-12 00:00:00" "2016-04-12 01:00:00" ...   
+ $ total_intensity  : int  20 8 7 0 0 0 0 0 13 30 ...   
+ $ average_intensity: num  0.333 0.133 0.117 0 0 ...   
+
+sleep_day$activity_date <- as.POSIXct(sleep_day$activity_date, format = "%m/%d/%Y %I:%M:%S %p")   
 sleep_day$activity_date <- as_date(sleep_day$activity_date )
-str(sleep_day)
+str(sleep_day)   
+
 ##### 'data.frame':	410 obs. of  5 variables:
- $ id                  : num  1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...
- $ activity_date       : Date, format: "2016-04-12" "2016-04-13" ...
- $ total_sleep_records : int  1 2 1 2 1 1 1 1 1 1 ...
- $ total_minutes_asleep: int  327 384 412 340 700 304 360 325 361 430 ...
- $ total_time_in_bed   : int  346 407 442 367 712 320 377 364 384 449 ...
+ $ id                  : num  1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...   
+ $ activity_date       : Date, format: "2016-04-12" "2016-04-13" ...   
+ $ total_sleep_records : int  1 2 1 2 1 1 1 1 1 1 ...   
+ $ total_minutes_asleep: int  327 384 412 340 700 304 360 325 361 430 ...   
+ $ total_time_in_bed   : int  346 407 442 367 712 320 377 364 384 449 ...   
 
 
 ##### Summarizing the distance
 
-daily_activity %>%
-  select(total_distance,very_active_distance,light_active_distance,moderately_active_distance) %>%
-  summary()
- total_distance   very_active_distance light_active_distance
- Min.   : 0.000   Min.   : 0.000       Min.   : 0.00        
- 1st Qu.: 1.410   1st Qu.: 0.000       1st Qu.: 0.87        
- Median : 4.090   Median : 0.000       Median : 2.93        
- Mean   : 4.664   Mean   : 1.181       Mean   : 2.89        
- 3rd Qu.: 7.160   3rd Qu.: 1.310       3rd Qu.: 4.46        
- Max.   :27.530   Max.   :21.920       Max.   :12.51        
- moderately_active_distance
- Min.   :0.0000            
- 1st Qu.:0.0000            
- Median :0.0200            
- Mean   :0.4786            
- 3rd Qu.:0.6700            
- Max.   :6.4000            
+![alt text](image-10.png)
+           
 ##### Summarizing the minutes
 
 The above summary shows that the average of lightly_active_minutes is more than the average of very_active_minutes and lightly_active_minutes. From this we can be informed that most of the users are leading a very lightly active lifestyle.
 
 ##### Summarizing totalsteps and calories
 
-daily_activity %>%
-  select(total_steps,calories) %>%
-  summary()
-  total_steps       calories   
- Min.   :    0   Min.   :   0  
- 1st Qu.: 1988   1st Qu.:1776  
- Median : 5986   Median :2062  
- Mean   : 6547   Mean   :2189  
- 3rd Qu.:10198   3rd Qu.:2667  
- Max.   :28497   Max.   :4562  
+![alt text](image-11.png) 
 
 ##### Average Steps,Calories and Distance of the Users
 
-AverageSteps<-daily_activity %>%group_by(id)%>%
-  drop_na()%>%
-  summarise( AvgSteps = mean(total_steps))%>%glimpse
+![alt text](image-12.png)
 
-Rows: 35
-Columns: 2
-$ id       <dbl> 1503960366, 1624580081, 1644430081, 1844505072, 1927972279, 2…
-$ AvgSteps <dbl> 11640.526, 4226.263, 9274.800, 3640.583, 2180.833, 12174.917,…
-AverageDistance<-daily_activity %>%group_by(id)%>%
-  drop_na()%>%
-  summarise( AvgSteps = mean(total_distance))%>%glimpse
-Rows: 35
-Columns: 2
-$ id       <dbl> 1503960366, 1624580081, 1644430081, 1844505072, 1927972279, 2…
-$ AvgSteps <dbl> 7.607368, 2.746842, 6.749000, 2.406667, 1.510833, 8.774167, 2…
-AverageCalories<-daily_activity %>%group_by(id)%>%
-  drop_na()%>%
-  summarise( AvgSteps = mean(calories))%>%glimpse
-Rows: 35
-Columns: 2
-$ id       <dbl> 1503960366, 1624580081, 1644430081, 1844505072, 1927972279, 2…
-$ AvgSteps <dbl> 1796.211, 1352.895, 2916.400, 1615.917, 2254.000, 2475.333, 1…
+![alt text](image-13.png)
 
 
 ##### 1.Plotting a graph between Average Steps per hour by the users
@@ -403,15 +198,11 @@ $ AvgSteps <dbl> 1796.211, 1352.895, 2916.400, 1615.917, 2254.000, 2475.333, 1�
 hourly_steps$activity_hour = format(as.POSIXct(hourly_steps$activity_date,format="%m%d%Y %H:%M:%S"),"%H:%M")
 ##### Summarizing Average Steps
 
-AvgSteps<-hourly_steps %>%group_by(activity_hour)%>%
-  drop_na()%>%
-  summarise( AvgSteps = mean(step_total))%>%view
-ggplot(AvgSteps,aes(x=activity_hour ,y = AvgSteps)) + geom_point() +
-  geom_segment(aes(x=activity_hour,xend = activity_hour,y=0,yend= AvgSteps , color = "orange"))+theme_bw()+
-  labs(title = "Average Steps Per Hour", x ="Hours" , y = "Average Steps")+
-  theme(axis.text.x = element_text(angle = 90),axis.title.x = element_blank())
+AvgSteps<-hourly_steps %>%group_by(activity_hour)%>%   
+  drop_na()%>%   
+  summarise( AvgSteps = mean(step_total))%>%view   
 
-No description has been provided for this image
+![alt text](image-14.png)
 
 ##### 2.Plotting a graph between Average intensities and hours
 ##### Separating the hours into another column as activity_hour
@@ -420,15 +211,11 @@ hourly_intensities$activity_hour = format(as.POSIXct(hourly_intensities$activity
 
 ##### Average Intensity Per Hour
 
-AvgIntensity  <-hourly_intensities %>%group_by(activity_hour)%>%
-  drop_na()%>%
+AvgIntensity  <-hourly_intensities %>%group_by(activity_hour)%>%  
+  drop_na()%>%  
   summarise( AvgIntensity = mean(total_intensity))%>%view
-ggplot(AvgIntensity,aes(x=activity_hour ,y = AvgIntensity)) + geom_point() +
-  geom_segment(aes(x=activity_hour,xend = activity_hour,y=0,yend= AvgIntensity),color = "blue")+theme_bw()+
-  labs(title = "Average Intensity Per Hour", x ="Hours" , y = "Average Intensity")+
-  theme(axis.text.x = element_text(angle = 90),axis.title.x = element_blank())
 
-No description has been provided for this image  
+![alt text](image-15.png)
 
 ##### Findings
 
@@ -436,10 +223,7 @@ From the above plot we can find that the average intensity is more during the ho
 
 ##### 3.Plotting a graph between TotalSteps and Calories
 
-ggplot(data = daily_activity)+ geom_smooth(mapping = aes(x= total_steps, y = calories))+geom_point(mapping = aes(x= total_steps, y = calories))+theme_bw()+labs(title = "TotalSteps vs Calories" , x = "TotalSteps")
-`geom_smooth()` using method = 'loess' and formula = 'y ~ x'
-
-No description has been provided for this image
+![alt text](image-16.png)
 
 ##### Findings
 
@@ -450,15 +234,13 @@ From the above graph the TotalSteps is proportional to the calories burnt. The m
 
 sleep_day %>%
   summarise( AvgSleepMinutes = mean(total_minutes_asleep))%>%glimpse
-Rows: 1
-Columns: 1
-$ AvgSleepMinutes <dbl> 419.1732
-ggplot(sleep_day,aes(x= total_minutes_asleep))+geom_histogram(mapping = aes(y= after_stat(density)),  color = "black", fill="white" )+
-  geom_density(aes(alpha=.2),fill = "orange") +theme_bw()+
-  labs(title = "Total Minutes Asleep" , x ="TotalMinutesAsleep" , caption = "April,2016 - May,2016")
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`
+Rows: 1   
+Columns: 1   
+$ AvgSleepMinutes <dbl> 419.1732   
 
-No description has been provided for this image
+![alt text](image-17.png)
+
+![alt text](image-18.png)
 
 ##### Findings
 
@@ -470,41 +252,19 @@ Extracting days from the activity_date column of daily_activity data frame and p
 
 Then summing up very active minutes,fairly active minutes and the lightly active minutes to get the total active minutes
 
-daily_activity$dayofweek <- weekdays(daily_activity$activity_date) # extracting only daysofweek 
+![alt text](image-19.png)
+![alt text](image-20.png)
 
-daily_activity$total_minutes <-  daily_activity$very_active_minutes+  # summing up active minutes
-  daily_activity$fairly_active_minutes + daily_activity$lightly_active_minutes
-view(daily_activity)
-ggplot(daily_activity,aes(x= dayofweek , y = total_minutes,fill = dayofweek))+
-  geom_col() + theme_bw() + theme(axis.ticks.x = element_blank())+labs(title = "Total Active Minutes vs Day of Week" , x= "Days of Week" , y = "Total Active Minutes")
+##### merging daily_activity and sleep_day data frame for further analysis   
 
-No description has been provided for this image
-
-##### merging daily_activity and sleep_day data frame for further analysis
-
-merged_data <-merge(sleep_day, daily_activity, by= c('id','activity_date'))
+merged_data <-merge(sleep_day, daily_activity, by= c('id','activity_date'))   
 head(merged_data)
 
-##### A data.frame: 6 × 20
-id	activity_date	total_sleep_records	total_minutes_asleep	total_time_in_bed	total_steps	total_distance	tracker_distance	logged_activities_distance	very_active_distance	moderately_active_distance	light_active_distance	sedentary_active_distance	very_active_minutes	fairly_active_minutes	lightly_active_minutes	sedentary_minutes	calories	dayofweek	total_minutes
-<dbl>	<date>	<int>	<int>	<int>	<int>	<dbl>	<dbl>	<dbl>	<dbl>	<dbl>	<dbl>	<dbl>	<int>	<int>	<int>	<int>	<int>	<chr>	<int>
-1	1503960366	2016-04-12	1	327	346	224	0.14	0.14	0	0	0	0.13	0	0	0	9	32	50	Tuesday	9
-2	1927972279	2016-04-12	3	750	775	24	0.02	0.02	0	0	0	0.02	0	0	0	3	161	942	Tuesday	3
-3	2026352035	2016-04-12	1	503	546	1019	0.63	0.63	0	0	0	0.63	0	0	0	64	223	600	Tuesday	64
-4	3977333714	2016-04-12	1	274	469	759	0.57	0.57	0	0	0	0.57	0	0	0	17	187	182	Tuesday	17
-5	4020332650	2016-04-12	1	501	541	8	0.01	0.01	0	0	0	0.01	0	0	0	1	321	446	Tuesday	1
-6	4445114986	2016-04-12	2	429	457	278	0.19	0.19	0	0	0	0.19	0	0	0	20	253	745	Tuesday	20
-ggplot(merged_data,aes(x = total_minutes_asleep, y = sedentary_minutes)) +geom_point(color = "red")+scale_x_continuous(limits=c(0, 600))+ 
-  geom_smooth(mapping = aes(x= total_minutes_asleep, y = sedentary_minutes),color= "grey")+
-  theme_bw() +
-  labs(title = "Sedentary minutes vs Time Asleep" , x ="Time Asleep" , y = "Sedentary minutes")
-`geom_smooth()` using method = 'loess' and formula = 'y ~ x'
-Warning message:
-“Removed 1 rows containing non-finite values (`stat_smooth()`).”
-Warning message:
-“Removed 1 rows containing missing values (`geom_point()`).”
+![alt text](image-21.png)
 
-No description has been provided for this image
+![alt text](image-22.png)
+
+![alt text](image-23.png)
 
 ##### Conclusion
 
