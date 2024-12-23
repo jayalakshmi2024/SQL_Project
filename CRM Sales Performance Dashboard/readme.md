@@ -1,4 +1,8 @@
 ### CRM Sales Dashboard
+
+![alt text](image.png)
+![alt text](image-1.png)
+
 ##### Project Summary
 Maven Analytic is a company that specializes in selling computer hardware to large businesses. They have just started using a new CRM system to track  their sales opportunities but have no visibility of the data outside the platform. To combat this, an interactive dashboard was built that enables the sales managers to track their team’s performance. Our goal is to track the Sales performance by each sales team and the total products sold quarterly.
 This project uses synthetically generated data for analysis from an open source called Synthea. Synthea is an open-source, synthetic patient generator that models the medical history of synthetic patients. Imported the csv files into PostgreSQL. And the size of the dataset was approximately 400000 records for each table. It consists of the patients, immunizations, condition and encounters details.
